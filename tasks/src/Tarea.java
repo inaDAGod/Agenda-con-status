@@ -10,15 +10,20 @@ public class Tarea{
     }
 
     public String getNombre() {
-		return nombre;
-	}
+		  return nombre;
+	  }
     public String getDetalles() {
-		return detalles;
-	}
+		  return detalles;
+	  }
     public String getEstado() {
-		return estado;
-	}
-
+		  return estado;
+	  
+    }
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return super.toString();
+    }
 
     
 
