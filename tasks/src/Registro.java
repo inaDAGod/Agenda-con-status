@@ -60,15 +60,14 @@ public class Registro{
 		return s;
 	}
 	
-	public String getNuevas(){
-		String s = "";
-		for(Tarea t: tareas) {
-			if(t.getEstado().equals("Pendiente")) {
-				
+	public void eliminarTarea(String nombre) {
+		ArrayList<Tarea> copia = new ArrayList<>();
+		for(Tarea t:tareas) {
+			if(!t.getNombre().equals(nombre)) {
+				copia.add(t);
 			}
-			
 		}
-		return s;
+		this.tareas = copia;
 	}
 	
 

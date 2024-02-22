@@ -6,7 +6,7 @@ public class App {
         System.out.println(t);
         Registro r = new Registro();
         r.addTarea(t);
-        r.addTarea(t);
         System.out.println(r);
+        r.eliminarTarea("nombre");
     }
 }
