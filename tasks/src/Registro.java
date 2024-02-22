@@ -60,5 +60,18 @@ public class Registro{
 		return s;
 	}
 	
+	public String getNuevas(){
+		String s = "";
+		for(Tarea t: tareas) {
+			if(t.getEstado().equals("Pendiente")) {
+				
+			}
+			
+		}
+		return s;
+	}
+	
+
+	
     
 }
