@@ -1,3 +1,5 @@
+package Ventana;
+
 
 
 import java.awt.BorderLayout;
