@@ -66,6 +66,16 @@ public class Tarea{
 	public String toString() {
 		return  fecha +":"+ nombre + "( "+ estado+ " )\n\t\t" + detalles+"\n";
 	}
+	
+	public void setCompletado() {
+		this.setEstado("Completada");
+	}
+	public void setPendiente() {
+		this.setEstado("Pendiente");
+	}
+	public void setEnCurso() {
+		this.setEstado("En Curso");
+	}
     
     
 
