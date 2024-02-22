@@ -28,6 +28,37 @@ public class Registro{
 		return s;
 	}
 	
+	public String getPendientes(){
+		String s = "";
+		for(Tarea t: tareas) {
+			if(t.getEstado().equals("Pendiente")) {
+				s += t.toString();
+			}
+			
+		}
+		return s;
+	}
+	public String getEnCurso(){
+		String s = "";
+		for(Tarea t: tareas) {
+			if(t.getEstado().equals("En Curso")) {
+				s += t.toString();
+			}
+			
+		}
+		return s;
+	}
+	
+	public String getCompletada(){
+		String s = "";
+		for(Tarea t: tareas) {
+			if(t.getEstado().equals("Completada")) {
+				s += t.toString();
+			}
+			
+		}
+		return s;
+	}
 	
     
 }
