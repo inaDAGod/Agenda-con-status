@@ -1,3 +1,4 @@
+package Clases;
 import java.time.LocalDate;
 
 public class Tarea{
@@ -64,7 +65,7 @@ public class Tarea{
 
 	@Override
 	public String toString() {
-		return  fecha +":"+ nombre + "( "+ estado+ " )\n\t\t" + detalles+"\n";
+		return  fecha +":"+ nombre + "( "+ estado+ " )\n\t" + detalles+"\n";
 	}
 	
 	public void setCompletado() {
