@@ -87,7 +87,7 @@ public class Pendientes extends JFrame {
         lblNewLabel_1.setFont(new Font("Times New Roman", Font.ITALIC, 25));
         panel_1.add(lblNewLabel_1);
 
-        JComboBox<String> comboBox_estado = new JComboBox<>(new String[] {"PENDIENTE", "EN_CURSO", "COMPLETADA"});
+        JComboBox<String> comboBox_estado = new JComboBox<>(new String[] {"TODO","PENDIENTE", "EN CURSO", "COMPLETADA"});
         comboBox_estado.setBounds(112, 71, 90, 21);  // Utiliza solo esta línea
         panel_1.add(comboBox_estado);
         
@@ -100,6 +100,37 @@ public class Pendientes extends JFrame {
         btnBuscar.setForeground(Color.WHITE);
         btnBuscar.setBackground(new Color(221, 160, 221));
         btnBuscar.setFont(new Font("Times New Roman", Font.ITALIC, 15));
+
+        btnBuscar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	if(comboBox_estado.getSelectedItem().getText.equals("PENDIENTE")){
+                    textArea.setText(registro.getPendientes());
+                    
+                }
+
+                if(comboBox_estado.getSelectedItem().getText.equals("TODO")){
+                    textArea.setText(registro.toString());
+                    
+                }
+                if(comboBox_estado.getSelectedItem().getText.equals("EN CURSO")){
+                    textArea.setText(registro.getEnCurso());
+                    
+                }
+                if(comboBox_estado.getSelectedItem().getText.equals("COMPLETADA")){
+                    textArea.setText(registro.getCompletada());
+                    
+                }
+                textArea.revalidate();
+                    textArea.repaint();
+
+                
+                
+
+
+
+            }
+        });
+
 
         JLabel lblNewLabel_2_2 = new JLabel("Estado");
         lblNewLabel_2_2.setForeground(new Color(221, 160, 221));
