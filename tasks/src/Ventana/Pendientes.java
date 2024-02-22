@@ -1,3 +1,5 @@
+package Ventana;
+
 
 
 import java.awt.BorderLayout;
@@ -7,19 +9,24 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Clases.Registro;
+import Clases.Tarea;
+
 import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
 public class Pendientes extends JFrame {
-
+	private Registro registro;
 
 
     private JPanel contentPane;
@@ -44,6 +51,7 @@ public class Pendientes extends JFrame {
      * Create the frame.
      */
     public Pendientes() {
+    	registro = new  Registro();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 700, 495);
         contentPane = new JPanel();
@@ -95,6 +103,7 @@ public class Pendientes extends JFrame {
         panel_1.add(lblNewLabel_2_2);
 
         JTextArea textArea = new JTextArea();
+        textArea.setText(registro.toString());
         textArea.setBounds(69, 76, 274, 302);
         panel.add(textArea);
 

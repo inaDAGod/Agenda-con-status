@@ -1,3 +1,4 @@
+package Clases;
 import java.util.ArrayList;
 
 public class Registro{
@@ -59,6 +60,18 @@ public class Registro{
 		}
 		return s;
 	}
+	
+	public void eliminarTarea(String nombre) {
+		ArrayList<Tarea> copia = new ArrayList<>();
+		for(Tarea t:tareas) {
+			if(!t.getNombre().equals(nombre)) {
+				copia.add(t);
+			}
+		}
+		this.tareas = copia;
+	}
+	
+
 	
     
 }
