@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Clases.Registro;
 import Clases.Tarea;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
 public class Agregar extends JFrame {
-    
+    private Registro registro;
 
     private JPanel contentPane;
     private JTextField textField_fecha;
@@ -57,6 +58,7 @@ public class Agregar extends JFrame {
      * Create the frame.
      */
     public Agregar() {
+        registro = new Registro();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 700, 495);
         contentPane = new JPanel();
@@ -156,7 +158,7 @@ public class Agregar extends JFrame {
 
         panel.add(scrollPane);
 
-        leerArchivoYMostrarEnTextArea("tareas.txt", textArea);
+        textArea.setText(registro.toString());
 
         
 
@@ -177,49 +179,20 @@ public class Agregar extends JFrame {
                 String tarea = textField_Tarea.getText();
                 String fecha = textField_fecha.getText();
                 Object selectedEstado = comboBox_estado.getSelectedItem();
-
-                if (selectedEstado != null) {
-                    String estado = selectedEstado.toString();
-                    String detalles = textField_Descrip.getText();
-
-                    if (tarea.isEmpty() || fecha.isEmpty() || detalles.isEmpty()) {
-                        JOptionPane.showMessageDialog(Agregar.this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
-                    GuardarEnTxt.agregarTarea(tarea, fecha, estado, detalles);
-
-                    leerArchivoYMostrarEnTextArea("tareas.txt", textArea);
-                } else {
-                    JOptionPane.showMessageDialog(Agregar.this, "Por favor, seleccione un estado.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                String estado = selectedEstado.toString();
+                String detalles = textField_Descrip.getText();
+                registro.addTarea(Tarea(tarea,detalles,fecha,estado));
+                textArea.setText(registro.toString());
+                textArea.revalidate();
+                textArea.repaint();
+               
             }
         });
 
     }
-    private void leerArchivoYMostrarEnTextArea(String nombreArchivo, JTextArea textArea) {
-        try {
-            FileReader fileReader = new FileReader(nombreArchivo);
-            BufferedReader reader = new BufferedReader(fileReader);
 
-            StringBuilder contenido = new StringBuilder();
-            String linea;
-            while ((linea = reader.readLine()) != null) {
-                contenido.append(linea).append("\n");
-            }
 
-            textArea.setText(contenido.toString());
-
-            reader.close();
-            fileReader.close();
-        } catch (FileNotFoundException e) {
-            
-            JOptionPane.showMessageDialog(this, "El archivo no existe.", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (IOException e) {
-            
-            JOptionPane.showMessageDialog(this, "Error al leer el archivo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+    
     
 
 
