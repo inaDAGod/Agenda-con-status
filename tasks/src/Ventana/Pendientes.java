@@ -16,6 +16,8 @@ import Clases.Tarea;
 import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -85,16 +87,19 @@ public class Pendientes extends JFrame {
         lblNewLabel_1.setFont(new Font("Times New Roman", Font.ITALIC, 25));
         panel_1.add(lblNewLabel_1);
 
-        JComboBox comboBox = new JComboBox();
-        comboBox.setBounds(112, 71, 90, 21);
-        panel_1.add(comboBox);
+        JComboBox<String> comboBox_estado = new JComboBox<>(new String[] {"PENDIENTE", "EN_CURSO", "COMPLETADA"});
+        comboBox_estado.setBounds(112, 71, 90, 21);  // Utiliza solo esta línea
+        panel_1.add(comboBox_estado);
+        
+        comboBox_estado.setBounds(112, 71, 90, 21);
+        panel_1.add(comboBox_estado);
 
-        JButton btnNewButton = new JButton("Buscar");
-        btnNewButton.setBounds(63, 124, 101, 21);
-        panel_1.add(btnNewButton);
-        btnNewButton.setForeground(Color.WHITE);
-        btnNewButton.setBackground(new Color(221, 160, 221));
-        btnNewButton.setFont(new Font("Times New Roman", Font.ITALIC, 15));
+        JButton btnBuscar = new JButton("Buscar");
+        btnBuscar.setBounds(63, 124, 101, 21);
+        panel_1.add(btnBuscar);
+        btnBuscar.setForeground(Color.WHITE);
+        btnBuscar.setBackground(new Color(221, 160, 221));
+        btnBuscar.setFont(new Font("Times New Roman", Font.ITALIC, 15));
 
         JLabel lblNewLabel_2_2 = new JLabel("Estado");
         lblNewLabel_2_2.setForeground(new Color(221, 160, 221));
@@ -131,9 +136,9 @@ public class Pendientes extends JFrame {
         lblNewLabel_1_1.setBounds(12, 5, 190, 30);
         panel_1_1.add(lblNewLabel_1_1);
 
-        JComboBox comboBox_1 = new JComboBox();
-        comboBox_1.setBounds(112, 71, 90, 21);
-        panel_1_1.add(comboBox_1);
+        JComboBox comboBox_tarea = new JComboBox();
+        comboBox_tarea.setBounds(112, 71, 90, 21);
+        panel_1_1.add(comboBox_tarea);
 
         JButton btnEliminar = new JButton("Eliminar");
         btnEliminar.setForeground(Color.WHITE);
@@ -147,10 +152,8 @@ public class Pendientes extends JFrame {
         lblNewLabel_2_2_1.setFont(new Font("Times New Roman", Font.ITALIC, 20));
         lblNewLabel_2_2_1.setBounds(12, 71, 70, 16);
         panel_1_1.add(lblNewLabel_2_2_1);
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        
 
-            }
-        });
     }
+   
 }

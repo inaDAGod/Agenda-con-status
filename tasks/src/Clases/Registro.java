@@ -1,5 +1,8 @@
 package Clases;
 import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Registro{
     private ArrayList<Tarea> tareas;
@@ -70,6 +73,26 @@ public class Registro{
 		}
 		this.tareas = copia;
 	}
+	public void guardarEnArchivo(String nombreArchivo) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
+            for (Tarea tarea : tareas) {
+                writer.write(tarea.toString());
+                writer.newLine(); // Agregar una nueva línea entre cada tarea
+            }
+            System.out.println("Todas las tareas guardadas en el archivo correctamente.");
+        } catch (IOException e) {
+            System.err.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+    }
+	public ArrayList<Tarea> buscarTareasPorEstado(String estado) {
+        ArrayList<Tarea> tareasFiltradas = new ArrayList<>();
+        for (Tarea tarea : tareas) {
+            if (tarea.getEstado().equalsIgnoreCase(estado)) {
+                tareasFiltradas.add(tarea);
+            }
+        }
+        return tareasFiltradas;
+    }
 	
 
 	

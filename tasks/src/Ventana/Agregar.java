@@ -1,18 +1,27 @@
 package Ventana;
 
 
+import java.awt.*;
+import javax.swing.JScrollPane;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Clases.Tarea;
+
 import java.util.ArrayList;
-import java.awt.Color;
+
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -24,9 +33,9 @@ public class Agregar extends JFrame {
     
 
     private JPanel contentPane;
-    private JTextField textField;
-    private JTextField textField_1;
-    private JTextField textField_2;
+    private JTextField textField_fecha;
+    private JTextField textField_Tarea;
+    private JTextField textField_Descrip;
 
     /**
      * Launch the application.
@@ -81,26 +90,31 @@ public class Agregar extends JFrame {
         lblNewLabel_1.setFont(new Font("Times New Roman", Font.ITALIC, 25));
         panel_1.add(lblNewLabel_1);
 
-        JComboBox comboBox = new JComboBox();
-        comboBox.setBounds(118, 183, 90, 21);
-        panel_1.add(comboBox);
+        
+        JComboBox<String> comboBox_estado = new JComboBox<>(new String[] {"PENDIENTE", "EN_CURSO", "COMPLETADA"});
+        comboBox_estado.setBounds(118, 183, 90, 21);
+        panel_1.add(comboBox_estado);
 
-        textField = new JTextField();
-        textField.setBounds(112, 140, 96, 19);
-        panel_1.add(textField);
-        textField.setColumns(10);
 
-        textField_1 = new JTextField();
-        textField_1.setBounds(112, 57, 96, 19);
-        panel_1.add(textField_1);
-        textField_1.setColumns(10);
+        comboBox_estado.setBounds(118, 183, 90, 21);
+        panel_1.add(comboBox_estado);
 
-        JButton btnNewButton = new JButton("Agregar");
-        btnNewButton.setBounds(68, 252, 101, 21);
-        panel_1.add(btnNewButton);
-        btnNewButton.setForeground(Color.WHITE);
-        btnNewButton.setBackground(new Color(221, 160, 221));
-        btnNewButton.setFont(new Font("Times New Roman", Font.ITALIC, 15));
+        textField_fecha = new JTextField();
+        textField_fecha.setBounds(112, 140, 96, 19);
+        panel_1.add(textField_fecha);
+        textField_fecha.setColumns(10);
+
+        textField_Tarea = new JTextField();
+        textField_Tarea.setBounds(112, 57, 96, 19);
+        panel_1.add(textField_Tarea);
+        textField_Tarea.setColumns(10);
+
+        JButton btnAgregar = new JButton("Agregar");
+        btnAgregar.setBounds(68, 252, 101, 21);
+        panel_1.add(btnAgregar);
+        btnAgregar.setForeground(Color.WHITE);
+        btnAgregar.setBackground(new Color(221, 160, 221));
+        btnAgregar.setFont(new Font("Times New Roman", Font.ITALIC, 15));
 
         JLabel lblNewLabel_2 = new JLabel("Fecha");
         lblNewLabel_2.setForeground(new Color(221, 160, 221));
@@ -126,31 +140,90 @@ public class Agregar extends JFrame {
         lblNewLabel_2_1_1.setBounds(10, 93, 112, 16);
         panel_1.add(lblNewLabel_2_1_1);
         
-        textField_2 = new JTextField();
-        textField_2.setColumns(10);
-        textField_2.setBounds(112, 94, 96, 19);
-        panel_1.add(textField_2);
+        textField_Descrip = new JTextField();
+        textField_Descrip.setColumns(10);
+        textField_Descrip.setBounds(112, 94, 96, 19);
+        panel_1.add(textField_Descrip);
 
+        
         JTextArea textArea = new JTextArea();
-        textArea.setBounds(69, 76, 274, 302);
-        panel.add(textArea);
+        textArea.setBounds(78, 76, 274, 302);
+        textArea.setEditable(false); 
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setBounds(78, 76, 274, 302);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        JButton btnNewButton_1 = new JButton("Volver");
-        btnNewButton_1.addActionListener(new ActionListener() {
+        panel.add(scrollPane);
+
+        leerArchivoYMostrarEnTextArea("tareas.txt", textArea);
+
+        
+
+        JButton btnVolver = new JButton("Volver");
+        btnVolver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 Menu ventanaInicio = new Menu();
                 ventanaInicio.setVisible(true);
             }
         });
-        btnNewButton_1.setFont(new Font("Times New Roman", Font.ITALIC, 25));
-        btnNewButton_1.setForeground(new Color(221, 160, 221));
-        btnNewButton_1.setBounds(525, 405, 120, 27);
-        panel.add(btnNewButton_1);
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        btnVolver.setFont(new Font("Times New Roman", Font.ITALIC, 25));
+        btnVolver.setForeground(new Color(221, 160, 221));
+        btnVolver.setBounds(525, 405, 120, 27);
+        panel.add(btnVolver);
+        btnAgregar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                String tarea = textField_Tarea.getText();
+                String fecha = textField_fecha.getText();
+                Object selectedEstado = comboBox_estado.getSelectedItem();
 
+                if (selectedEstado != null) {
+                    String estado = selectedEstado.toString();
+                    String detalles = textField_Descrip.getText();
+
+                    if (tarea.isEmpty() || fecha.isEmpty() || detalles.isEmpty()) {
+                        JOptionPane.showMessageDialog(Agregar.this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    GuardarEnTxt.agregarTarea(tarea, fecha, estado, detalles);
+
+                    leerArchivoYMostrarEnTextArea("tareas.txt", textArea);
+                } else {
+                    JOptionPane.showMessageDialog(Agregar.this, "Por favor, seleccione un estado.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
+
     }
+    private void leerArchivoYMostrarEnTextArea(String nombreArchivo, JTextArea textArea) {
+        try {
+            FileReader fileReader = new FileReader(nombreArchivo);
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            StringBuilder contenido = new StringBuilder();
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                contenido.append(linea).append("\n");
+            }
+
+            textArea.setText(contenido.toString());
+
+            reader.close();
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            
+            JOptionPane.showMessageDialog(this, "El archivo no existe.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e) {
+            
+            JOptionPane.showMessageDialog(this, "Error al leer el archivo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+
+
+
+
+
 }
