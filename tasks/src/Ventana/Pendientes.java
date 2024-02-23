@@ -55,7 +55,7 @@ public class Pendientes extends JFrame {
     public Pendientes() {
     	registro = new  Registro();
     	
-    	Tarea t= new Tarea("nombre", "detalle", LocalDate.now(),"Pendiente");
+    	Tarea t= new Tarea("nombresito", "detalle", LocalDate.now(),"Pendiente");
         registro.addTarea(t);
         Tarea ta= new Tarea("nombre", "detalle", LocalDate.now(),"Pendiente");
         ta.setCompletado();
@@ -153,6 +153,10 @@ public class Pendientes extends JFrame {
         JComboBox comboBox_tarea = new JComboBox();
         comboBox_tarea.setBounds(112, 71, 90, 21);
         panel_1_1.add(comboBox_tarea);
+        
+        for (String elemento : registro.listaNombres()) {
+            comboBox_tarea.addItem(elemento);
+        }
 
         JButton btnEliminar = new JButton("Eliminar");
         btnEliminar.setForeground(Color.WHITE);
@@ -189,6 +193,15 @@ public class Pendientes extends JFrame {
                 textArea.repaint();
 
   
+            }
+        });
+        
+        btnEliminar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	registro.eliminarTarea(comboBox_tarea.getSelectedItem().toString());
+            	textArea.setText(registro.toString());
+            	textArea.revalidate();
+                textArea.repaint();
             }
         });
 

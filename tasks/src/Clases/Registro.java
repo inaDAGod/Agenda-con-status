@@ -75,6 +75,16 @@ public class Registro{
 		}
 		this.tareas = copia;
 	}
+	
+	public ArrayList<String> listaNombres(){
+		ArrayList<String> nombres = new ArrayList<>();
+		for(Tarea t:tareas) {
+			if(t.getEstado().equals("Pendiente")) {
+				nombres.add(t.getNombre());
+			}
+		}
+		return nombres;
+	}
 	public void guardarEnArchivo(String nombreArchivo) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
             for (Tarea tarea : tareas) {
@@ -95,6 +105,8 @@ public class Registro{
         }
         return tareasFiltradas;
     }
+	
+	
 	
 
 	
