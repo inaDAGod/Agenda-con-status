@@ -54,6 +54,17 @@ public class Pendientes extends JFrame {
      */
     public Pendientes() {
     	registro = new  Registro();
+    	
+    	Tarea t= new Tarea("nombre", "detalle", LocalDate.now(),"Pendiente");
+        registro.addTarea(t);
+        Tarea ta= new Tarea("nombre", "detalle", LocalDate.now(),"Pendiente");
+        ta.setCompletado();
+        registro.addTarea(ta);
+        Tarea tf= new Tarea("nombre", "detalle", LocalDate.now(),"Pendiente");
+        tf.setEnCurso();
+        registro.addTarea(tf);
+        
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 700, 495);
         contentPane = new JPanel();
@@ -87,7 +98,7 @@ public class Pendientes extends JFrame {
         lblNewLabel_1.setFont(new Font("Times New Roman", Font.ITALIC, 25));
         panel_1.add(lblNewLabel_1);
 
-        JComboBox<String> comboBox_estado = new JComboBox<>(new String[] {"PENDIENTE", "EN_CURSO", "COMPLETADA"});
+        JComboBox<String> comboBox_estado = new JComboBox<>(new String[] {"TODO","PENDIENTE", "EN CURSO", "COMPLETADA"});
         comboBox_estado.setBounds(112, 71, 90, 21);  // Utiliza solo esta línea
         panel_1.add(comboBox_estado);
         
@@ -100,6 +111,9 @@ public class Pendientes extends JFrame {
         btnBuscar.setForeground(Color.WHITE);
         btnBuscar.setBackground(new Color(221, 160, 221));
         btnBuscar.setFont(new Font("Times New Roman", Font.ITALIC, 15));
+
+       
+
 
         JLabel lblNewLabel_2_2 = new JLabel("Estado");
         lblNewLabel_2_2.setForeground(new Color(221, 160, 221));
@@ -152,7 +166,31 @@ public class Pendientes extends JFrame {
         lblNewLabel_2_2_1.setFont(new Font("Times New Roman", Font.ITALIC, 20));
         lblNewLabel_2_2_1.setBounds(12, 71, 70, 16);
         panel_1_1.add(lblNewLabel_2_2_1);
-        
+        btnBuscar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	if(comboBox_estado.getSelectedItem().toString().equals("PENDIENTE")){
+                    textArea.setText(registro.getPendientes());
+                    
+                }
+
+                if(comboBox_estado.getSelectedItem().toString().equals("TODO")){
+                    textArea.setText(registro.toString());
+                    
+                }
+                if(comboBox_estado.getSelectedItem().toString().equals("EN CURSO")){
+                    textArea.setText(registro.getEnCurso());
+                    
+                }
+                if(comboBox_estado.getSelectedItem().toString().equals("COMPLETADA")){
+                    textArea.setText(registro.getCompletada());
+                    
+                }
+                textArea.revalidate();
+                textArea.repaint();
+
+  
+            }
+        });
 
     }
    

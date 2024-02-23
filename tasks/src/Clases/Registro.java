@@ -9,6 +9,7 @@ public class Registro{
 
 	public Registro() {
 		this.tareas = new ArrayList<>();
+
 	}
 
 	public ArrayList<Tarea> getTareas() {
@@ -21,6 +22,7 @@ public class Registro{
 	
 	public void addTarea(Tarea tarea) {
 		tareas.add(tarea);
+		
 	}
 
 	@Override
