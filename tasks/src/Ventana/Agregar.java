@@ -60,6 +60,8 @@ public class Agregar extends JFrame {
      */
     public Agregar() {
         registro = new Registro();
+        
+        
         Tarea t= new Tarea("nombre", "detalle", LocalDate.now(),"Pendiente");
         registro.addTarea(t);
         Tarea ta= new Tarea("nombre", "detalle", LocalDate.now(),"Pendiente");
