@@ -16,6 +16,8 @@ import Clases.Tarea;
 import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -52,8 +54,19 @@ public class Pendientes extends JFrame {
      */
     public Pendientes() {
     	registro = new  Registro();
+    	
+    	Tarea t= new Tarea("nombresito", "detalle", LocalDate.now(),"Pendiente");
+        registro.addTarea(t);
+        Tarea ta= new Tarea("nombre", "detalle", LocalDate.now(),"Pendiente");
+        ta.setCompletado();
+        registro.addTarea(ta);
+        Tarea tf= new Tarea("nombre", "detalle", LocalDate.now(),"Pendiente");
+        tf.setEnCurso();
+        registro.addTarea(tf);
+        
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 700, 495);
+        setBounds(100, 100, 784, 580);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(221, 160, 221));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -63,7 +76,7 @@ public class Pendientes extends JFrame {
 
         JPanel panel = new JPanel();
         panel.setBackground(Color.PINK);
-        panel.setBounds(10, 10, 700, 496);
+        panel.setBounds(10, 10, 750, 523);
         contentPane.add(panel);
         panel.setLayout(null);
 
@@ -75,32 +88,36 @@ public class Pendientes extends JFrame {
         panel.add(lblNewLabel);
 
         JPanel panel_1 = new JPanel();
-        panel_1.setBounds(419, 62, 226, 162);
+        panel_1.setBounds(419, 60, 252, 107);
         panel.add(panel_1);
         panel_1.setLayout(null);
 
         JLabel lblNewLabel_1 = new JLabel("Estados a Buscar");
-        lblNewLabel_1.setBounds(12, 5, 190, 30);
+        lblNewLabel_1.setBounds(23, 10, 190, 30);
         lblNewLabel_1.setForeground(new Color(221, 160, 221));
         lblNewLabel_1.setFont(new Font("Times New Roman", Font.ITALIC, 25));
         panel_1.add(lblNewLabel_1);
 
-        JComboBox comboBox = new JComboBox();
-        comboBox.setBounds(112, 71, 90, 21);
-        panel_1.add(comboBox);
+        JButton btnBuscar = new JButton("Buscar");
+        btnBuscar.setBounds(77, 76, 101, 21);
+        panel_1.add(btnBuscar);
+        btnBuscar.setForeground(Color.WHITE);
+        btnBuscar.setBackground(new Color(221, 160, 221));
+        btnBuscar.setFont(new Font("Times New Roman", Font.ITALIC, 15));
 
-        JButton btnNewButton = new JButton("Buscar");
-        btnNewButton.setBounds(63, 124, 101, 21);
-        panel_1.add(btnNewButton);
-        btnNewButton.setForeground(Color.WHITE);
-        btnNewButton.setBackground(new Color(221, 160, 221));
-        btnNewButton.setFont(new Font("Times New Roman", Font.ITALIC, 15));
+       
+
 
         JLabel lblNewLabel_2_2 = new JLabel("Estado");
         lblNewLabel_2_2.setForeground(new Color(221, 160, 221));
         lblNewLabel_2_2.setFont(new Font("Times New Roman", Font.ITALIC, 20));
-        lblNewLabel_2_2.setBounds(12, 71, 70, 16);
+        lblNewLabel_2_2.setBounds(10, 50, 70, 16);
         panel_1.add(lblNewLabel_2_2);
+        
+        
+        JComboBox<String> comboBox_estado = new JComboBox<>(new String[] {"Todo","Pendiente", "En Curso", "Completada"});
+        comboBox_estado.setBounds(123, 50, 90, 21);
+        panel_1.add(comboBox_estado);
 
         JTextArea textArea = new JTextArea();
         textArea.setText(registro.toString());
@@ -117,40 +134,131 @@ public class Pendientes extends JFrame {
         });
         btnNewButton_1.setFont(new Font("Times New Roman", Font.ITALIC, 25));
         btnNewButton_1.setForeground(new Color(221, 160, 221));
-        btnNewButton_1.setBounds(525, 405, 120, 27);
+        btnNewButton_1.setBounds(565, 467, 120, 27);
         panel.add(btnNewButton_1);
 
         JPanel panel_1_1 = new JPanel();
         panel_1_1.setLayout(null);
-        panel_1_1.setBounds(419, 234, 226, 162);
+        panel_1_1.setBounds(419, 340, 252, 100);
         panel.add(panel_1_1);
 
         JLabel lblNewLabel_1_1 = new JLabel("Tarea a Borrar");
         lblNewLabel_1_1.setForeground(new Color(221, 160, 221));
         lblNewLabel_1_1.setFont(new Font("Times New Roman", Font.ITALIC, 25));
-        lblNewLabel_1_1.setBounds(12, 5, 190, 30);
+        lblNewLabel_1_1.setBounds(47, 0, 161, 30);
         panel_1_1.add(lblNewLabel_1_1);
 
-        JComboBox comboBox_1 = new JComboBox();
-        comboBox_1.setBounds(112, 71, 90, 21);
-        panel_1_1.add(comboBox_1);
+        JComboBox comboBox_tarea = new JComboBox();
+        comboBox_tarea.setBounds(132, 40, 90, 21);
+        panel_1_1.add(comboBox_tarea);
+        
+        for (String elemento : registro.listaNombresNuevos()) {
+            comboBox_tarea.addItem(elemento);
+        }
 
         JButton btnEliminar = new JButton("Eliminar");
         btnEliminar.setForeground(Color.WHITE);
         btnEliminar.setFont(new Font("Times New Roman", Font.ITALIC, 15));
         btnEliminar.setBackground(new Color(221, 160, 221));
-        btnEliminar.setBounds(63, 124, 101, 21);
+        btnEliminar.setBounds(63, 71, 101, 21);
         panel_1_1.add(btnEliminar);
 
         JLabel lblNewLabel_2_2_1 = new JLabel("Tarea");
         lblNewLabel_2_2_1.setForeground(new Color(221, 160, 221));
         lblNewLabel_2_2_1.setFont(new Font("Times New Roman", Font.ITALIC, 20));
-        lblNewLabel_2_2_1.setBounds(12, 71, 70, 16);
+        lblNewLabel_2_2_1.setBounds(28, 40, 70, 16);
         panel_1_1.add(lblNewLabel_2_2_1);
-        btnNewButton.addActionListener(new ActionListener() {
+        
+        JPanel panel_cambiares = new JPanel();
+        panel_cambiares.setBounds(419, 182, 252, 146);
+        panel.add(panel_cambiares);
+        panel_cambiares.setLayout(null);
+        
+        JLabel lblNewLabel_2_2_2 = new JLabel("Estado");
+        lblNewLabel_2_2_2.setBounds(26, 39, 58, 24);
+        lblNewLabel_2_2_2.setForeground(new Color(221, 160, 221));
+        lblNewLabel_2_2_2.setFont(new Font("Times New Roman", Font.ITALIC, 20));
+        panel_cambiares.add(lblNewLabel_2_2_2);
+        
+        JLabel lblNewLabel_1_2 = new JLabel("Cambiar Estado");
+        lblNewLabel_1_2.setBounds(26, 0, 177, 30);
+        lblNewLabel_1_2.setForeground(new Color(221, 160, 221));
+        lblNewLabel_1_2.setFont(new Font("Times New Roman", Font.ITALIC, 25));
+        panel_cambiares.add(lblNewLabel_1_2);
+        
+   
+        JComboBox<String> comboBox_estados2= new JComboBox<>(new String[] {"Pendiente", "En Curso", "Completada"});
+        comboBox_estados2.setBounds(113, 43, 90, 21);
+        panel_cambiares.add(comboBox_estados2);
+        
+        JButton btnCambiar = new JButton("Cambiar");
+        btnCambiar.setForeground(Color.WHITE);
+        btnCambiar.setFont(new Font("Times New Roman", Font.ITALIC, 15));
+        btnCambiar.setBackground(new Color(221, 160, 221));
+        btnCambiar.setBounds(71, 115, 101, 21);
+        panel_cambiares.add(btnCambiar);
+        
+        JLabel lblNewLabel_2_2_1_1 = new JLabel("Tarea");
+        lblNewLabel_2_2_1_1.setForeground(new Color(221, 160, 221));
+        lblNewLabel_2_2_1_1.setFont(new Font("Times New Roman", Font.ITALIC, 20));
+        lblNewLabel_2_2_1_1.setBounds(28, 89, 70, 16);
+        panel_cambiares.add(lblNewLabel_2_2_1_1);
+        
+        JComboBox comboBox_tarea2 = new JComboBox();
+        comboBox_tarea2.setBounds(113, 84, 90, 21);
+        for (String elemento : registro.listaNombres()) {
+            comboBox_tarea2.addItem(elemento);
+        }
+        panel_cambiares.add(comboBox_tarea2);
+        
+        JLabel lblNewLabel_1_3 = new JLabel("Opciones");
+        lblNewLabel_1_3.setForeground(Color.WHITE);
+        lblNewLabel_1_3.setFont(new Font("Times New Roman", Font.ITALIC, 25));
+        lblNewLabel_1_3.setBounds(495, 20, 190, 30);
+        panel.add(lblNewLabel_1_3);
+        btnBuscar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	if(comboBox_estado.getSelectedItem().toString().equals("Pendiente")){
+                    textArea.setText(registro.getPendientes());
+                    
+                }
 
+                if(comboBox_estado.getSelectedItem().toString().equals("Todo")){
+                    textArea.setText(registro.toString());
+                    
+                }
+                if(comboBox_estado.getSelectedItem().toString().equals("En Curso")){
+                    textArea.setText(registro.getEnCurso());
+                    
+                }
+                if(comboBox_estado.getSelectedItem().toString().equals("Completada")){
+                    textArea.setText(registro.getCompletada());
+                    
+                }
+                textArea.revalidate();
+                textArea.repaint();
+
+  
             }
         });
+        
+        btnEliminar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	registro.eliminarTarea(comboBox_tarea.getSelectedItem().toString());
+            	textArea.setText(registro.toString());
+            	textArea.revalidate();
+                textArea.repaint();
+            }
+        });
+        
+        btnCambiar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	registro.cambiarEstado(comboBox_tarea2.getSelectedItem().toString(), comboBox_estados2.getSelectedItem().toString());
+            	textArea.setText(registro.toString());
+                textArea.revalidate();
+                textArea.repaint();
+            }
+        });
+
     }
 }
