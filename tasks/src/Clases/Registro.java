@@ -1,5 +1,8 @@
 package Clases;
 import java.util.ArrayList;
+
+import Ventana.GuardarEnTxt;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,6 +12,12 @@ public class Registro{
 
 	public Registro() {
 		this.tareas = new ArrayList<>();
+		try {
+			this.tareas = GuardarEnTxt.leerArchivoYObtenerLista("tareas.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -18,10 +27,22 @@ public class Registro{
 
 	public void setTareas(ArrayList<Tarea> tareas) {
 		this.tareas = tareas;
+		try {
+			GuardarEnTxt.guardarTareasEnArchivo("tareas.txt", tareas);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void addTarea(Tarea tarea) {
 		tareas.add(tarea);
+		try {
+			GuardarEnTxt.guardarTareasEnArchivo("tareas.txt", tareas);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -75,7 +96,7 @@ public class Registro{
 				copia.add(t);
 			}
 		}
-		this.tareas = copia;
+		setTareas(copia);
 	}
 	
 	public void cambiarEstado(String nombre,String estado) {
@@ -91,6 +112,12 @@ public class Registro{
 					t.setEnCurso();
 				}
 			}
+		}
+		try {
+			GuardarEnTxt.guardarTareasEnArchivo("tareas.txt", tareas);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
@@ -115,26 +142,7 @@ public class Registro{
 		return nombres;
 	}
 	
-	public void guardarEnArchivo(String nombreArchivo) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
-            for (Tarea tarea : tareas) {
-                writer.write(tarea.toString());
-                writer.newLine(); // Agregar una nueva línea entre cada tarea
-            }
-            System.out.println("Todas las tareas guardadas en el archivo correctamente.");
-        } catch (IOException e) {
-            System.err.println("Error al escribir en el archivo: " + e.getMessage());
-        }
-    }
-	public ArrayList<Tarea> buscarTareasPorEstado(String estado) {
-        ArrayList<Tarea> tareasFiltradas = new ArrayList<>();
-        for (Tarea tarea : tareas) {
-            if (tarea.getEstado().equalsIgnoreCase(estado)) {
-                tareasFiltradas.add(tarea);
-            }
-        }
-        return tareasFiltradas;
-    }
+	
 	
 	
 	

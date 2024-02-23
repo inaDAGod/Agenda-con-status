@@ -26,6 +26,7 @@ public class Menu extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
+                	
                     Menu frame = new Menu();
                     frame.setVisible(true);
                 } catch (Exception e) {
@@ -78,7 +79,7 @@ public class Menu extends JFrame {
                 agenda.setVisible(true);
             }
         });
-        btnNewButton.setBounds(167, 127, 101, 21);
+        btnNewButton.setBounds(150, 127, 120, 21);
         panel.add(btnNewButton);
 
         JButton btnPendientes = new JButton("Pendientes");
@@ -92,7 +93,7 @@ public class Menu extends JFrame {
         btnPendientes.setForeground(Color.WHITE);
         btnPendientes.setFont(new Font("Times New Roman", Font.ITALIC, 15));
         btnPendientes.setBackground(new Color(221, 160, 221));
-        btnPendientes.setBounds(167, 175, 101, 21);
+        btnPendientes.setBounds(150, 175, 120, 21);
         panel.add(btnPendientes);
     }
 }
