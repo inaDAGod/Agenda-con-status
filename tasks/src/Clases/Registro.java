@@ -34,6 +34,8 @@ public class Registro{
 		return s;
 	}
 	
+	
+	
 	public String getPendientes(){
 		String s = "";
 		for(Tarea t: tareas) {
@@ -76,7 +78,25 @@ public class Registro{
 		this.tareas = copia;
 	}
 	
-	public ArrayList<String> listaNombres(){
+	public void cambiarEstado(String nombre,String estado) {
+		for(Tarea t:tareas) {
+			if(t.getNombre().equals(nombre)) {
+				if(estado.equals("Pendiente")) {
+					t.setPendiente();
+				}
+				if(estado.equals("Completada")) {
+					t.setCompletado();
+				}
+				if(estado.equals("En Curso")) {
+					t.setEnCurso();
+				}
+			}
+		}
+		
+	}
+	
+	
+	public ArrayList<String> listaNombresNuevos(){
 		ArrayList<String> nombres = new ArrayList<>();
 		for(Tarea t:tareas) {
 			if(t.getEstado().equals("Pendiente")) {
@@ -85,6 +105,16 @@ public class Registro{
 		}
 		return nombres;
 	}
+	
+	
+	public ArrayList<String> listaNombres(){
+		ArrayList<String> nombres = new ArrayList<>();
+		for(Tarea t:tareas) {
+			nombres.add(t.getNombre());
+		}
+		return nombres;
+	}
+	
 	public void guardarEnArchivo(String nombreArchivo) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
             for (Tarea tarea : tareas) {

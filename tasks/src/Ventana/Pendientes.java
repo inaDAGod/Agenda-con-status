@@ -115,7 +115,7 @@ public class Pendientes extends JFrame {
         panel_1.add(lblNewLabel_2_2);
         
         
-        JComboBox<String> comboBox_estado = new JComboBox<>(new String[] {"TODO","PENDIENTE", "EN CURSO", "COMPLETADA"});
+        JComboBox<String> comboBox_estado = new JComboBox<>(new String[] {"Todo","Pendiente", "En Curso", "Completada"});
         comboBox_estado.setBounds(123, 50, 90, 21);
         panel_1.add(comboBox_estado);
 
@@ -152,7 +152,7 @@ public class Pendientes extends JFrame {
         comboBox_tarea.setBounds(132, 40, 90, 21);
         panel_1_1.add(comboBox_tarea);
         
-        for (String elemento : registro.listaNombres()) {
+        for (String elemento : registro.listaNombresNuevos()) {
             comboBox_tarea.addItem(elemento);
         }
 
@@ -186,7 +186,8 @@ public class Pendientes extends JFrame {
         lblNewLabel_1_2.setFont(new Font("Times New Roman", Font.ITALIC, 25));
         panel_cambiares.add(lblNewLabel_1_2);
         
-        JComboBox comboBox_estados2 = new JComboBox();
+   
+        JComboBox<String> comboBox_estados2= new JComboBox<>(new String[] {"Pendiente", "En Curso", "Completada"});
         comboBox_estados2.setBounds(113, 43, 90, 21);
         panel_cambiares.add(comboBox_estados2);
         
@@ -205,6 +206,9 @@ public class Pendientes extends JFrame {
         
         JComboBox comboBox_tarea2 = new JComboBox();
         comboBox_tarea2.setBounds(113, 84, 90, 21);
+        for (String elemento : registro.listaNombres()) {
+            comboBox_tarea2.addItem(elemento);
+        }
         panel_cambiares.add(comboBox_tarea2);
         
         JLabel lblNewLabel_1_3 = new JLabel("Opciones");
@@ -214,20 +218,20 @@ public class Pendientes extends JFrame {
         panel.add(lblNewLabel_1_3);
         btnBuscar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	if(comboBox_estado.getSelectedItem().toString().equals("PENDIENTE")){
+            	if(comboBox_estado.getSelectedItem().toString().equals("Pendiente")){
                     textArea.setText(registro.getPendientes());
                     
                 }
 
-                if(comboBox_estado.getSelectedItem().toString().equals("TODO")){
+                if(comboBox_estado.getSelectedItem().toString().equals("Todo")){
                     textArea.setText(registro.toString());
                     
                 }
-                if(comboBox_estado.getSelectedItem().toString().equals("EN CURSO")){
+                if(comboBox_estado.getSelectedItem().toString().equals("En Curso")){
                     textArea.setText(registro.getEnCurso());
                     
                 }
-                if(comboBox_estado.getSelectedItem().toString().equals("COMPLETADA")){
+                if(comboBox_estado.getSelectedItem().toString().equals("Completada")){
                     textArea.setText(registro.getCompletada());
                     
                 }
@@ -243,6 +247,15 @@ public class Pendientes extends JFrame {
             	registro.eliminarTarea(comboBox_tarea.getSelectedItem().toString());
             	textArea.setText(registro.toString());
             	textArea.revalidate();
+                textArea.repaint();
+            }
+        });
+        
+        btnCambiar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	registro.cambiarEstado(comboBox_tarea2.getSelectedItem().toString(), comboBox_estados2.getSelectedItem().toString());
+            	textArea.setText(registro.toString());
+                textArea.revalidate();
                 textArea.repaint();
             }
         });
