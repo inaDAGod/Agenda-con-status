@@ -14,6 +14,18 @@ public class Tarea{
 		this.fecha = fecha;
 		this.estado = estado;
 	}
+	public Tarea(String nombre, LocalDate fecha, String estado) {
+		this.nombre = nombre;
+		this.detalles = "";
+		this.fecha = fecha;
+		this.estado = estado;
+	}
+	public Tarea() {
+		this.nombre = "";
+		this.detalles = "";
+		this.fecha = null;
+		this.estado = "";
+	}
 	
 	public Tarea(String nombre, String detalles, LocalDate fecha) {
 		this.nombre = nombre;
@@ -65,8 +77,8 @@ public class Tarea{
 
 	@Override
 	public String toString() {
-		return  fecha +":"+ nombre + "( "+ estado+ " )\n\t" + detalles+"\n";
-	}
+        return fecha + ":" + nombre + "( " + estado + " )\n\t" + detalles + "\n";
+    }
 	
 	public void setCompletado() {
 		this.setEstado("Completada");

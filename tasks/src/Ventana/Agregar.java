@@ -62,16 +62,6 @@ public class Agregar extends JFrame {
         registro = new Registro();
         
         
-        Tarea t= new Tarea("nombre", "detalle", LocalDate.now(),"Pendiente");
-        registro.addTarea(t);
-        Tarea ta= new Tarea("nombre", "detalle", LocalDate.now(),"Pendiente");
-        ta.setCompletado();
-        registro.addTarea(ta);
-        Tarea tf= new Tarea("nombre", "detalle", LocalDate.now(),"Pendiente");
-        tf.setEnCurso();
-        registro.addTarea(tf);
-        
-        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 700, 495);
         contentPane = new JPanel();

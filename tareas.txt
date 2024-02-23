@@ -1,16 +1,3 @@
-2024-02-22:Tarea1 (PENDIENTE)
-	Detalles1
-2024-02-22:Tarea2 (EN_CURSO)
-	Detalles2
-2024-02-22:Tarea3 (COMPLETADA)
-	Detalles3
-ghj:ghj (EN_CURSO)
-	ghj
-12-12-2024:Redes (PENDIENTE)
-	Resume
-12-12-2024:teco web (PENDIENTE)
-	pagina web
-12:6 (PENDIENTE)
-	ytreg
-12/12/2020:ytre (EN_CURSO)
-	rde
+2024-02-23,App de tareas,En Curso,tarea de ing software
+2024-02-28,Resumen diapos,Pendiente,tarea de ing software
+2024-02-23,Juego Modelo OSI,Completada,tarea de redes
